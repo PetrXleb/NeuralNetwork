@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neuralnetwork</title>
+</head>
+<body>
+    <div class="content">
+        <input type="text" id="input_txt" name="Name">
+        <img src="strelka.png" height="100px" width="100px">
+        <input type="text" id="output_txt" name="Name">
+    </div>
+    <div class="textt">
+        <div style="margin-left: 110px;">Килограмм</div>
+        <div style="margin-left: 310px;">Фунтов</div>
+    </div>
+    <div style="margin-top: 180px;">
+        <input type="button" class="btn" id="btn11" value="Конвертировать" OnClick="doCalc()"/><br>
+        <input type="button" class="btn" id="btn22" value="Тренеровать" OnClick="Train()"/>
+    </div>
+    <div style="margin-top: 50px;">
+        <input type="button" class="btn2" value="Точные значения для проверки" OnClick=""/><br>
+        <input type="button" class="btn2" value="100 кг = 220.46226218488 фунт" OnClick=""/><br>
+        <input type="button" class="btn2" value="8467 кг = 18666.539739194 фунт" OnClick=""/><br>
+        <input type="button" class="btn2" value="777 кг = 1712.9917771765 фунт" OnClick=""/><br>
+
+    </div>
+<style>
+html{
+    margin: 0px;
+    padding: 0px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Verdana, sans-serif;
+}
+.textt{
+    display: flex;
+    font-size: 2em;
+}
+input{
+    height: 100px;
+    width:  300px;
+    font-size: 2em;
+    margin: 20px;
+    border: 2px solid;
+    background-color: rgb(223, 220, 220);
+    border-radius: 10px;
+    text-align: center;
+}
+#btn11{
+    background-color: rgb(101, 241, 101);
+}
+#btn22{
+    background-color: rgb(225, 253, 99);
+}
+img{
+    margin-top: 20px;
+}
+.content{
+    display: flex;
+    margin: 30px;
+    margin-bottom: 0px;
+}
+.btn{
+    height: 100px;
+    width:  250px;
+    font-size: 2em;
+    margin: 20px;
+    border: 2px solid;
+    background-color: rgb(243, 240, 240);
+    border-radius: 2px;
+}
+.btn2{
+    height: 100px;
+    width:  500px;
+    font-size: 2em;
+    margin: 20px;
+    border: 2px solid;
+    background-color: rgb(243, 240, 240);
+    border-radius: 2px;
+}
+</style>
+
+<script>
+let inputVal = document.getElementById('input_txt');
+let outputVal = document.getElementById('output_txt');
+    //только для чтения
+    outputVal.readOnly = true;
+
+    //один нейрон
+    let neuroset = {
+        //вес
+        weight: 0.5,
+        //ожидаемый результат из 100 кг
+        expectResult: 220.46226
+    }
+
+       function doCalc() {
+        outputVal.value = (inputVal.value * neuroset.weight).toFixed(7);
+        console.log("---------------------");
+        console.log(inputVal.value * neuroset.weight);
+        console.log("---------------------");
+       }
+
+       function Train(){
+        console.log("Начало тренировки");
+        console.log("---------------------");
+        let actualRes;
+        let lastErr;
+        let correction;
+        let smoothing = 0.0001;
+        let i = 0;     
+            do {
+                //получаем текущий результат обычным переумножением
+                 actualRes = inputVal.value * neuroset.weight;
+                 lastErr = neuroset.expectResult - actualRes;
+                //корректируем весы последними значениями
+                 correction = (lastErr / actualRes) * smoothing;
+                 neuroset.weight += correction;
+                //иттерируем ход
+                i++;
+                if (i%10000==0) {
+                    //выводим каждую 10-ти тысячную операцию
+                    console.log(`Иттерация:\t${i}\n Ошибка:\t${lastErr}`);
+                }
+                //
+            } while ((lastErr > smoothing)||(lastErr < -smoothing));
+            console.log("---------------------");
+            console.log("Конец тренировки");
+       }
+</script>
+</body>
+</html>
