@@ -1,133 +1,189 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Neuralnetwork</title>
-</head>
-<body>
+  </head>
+  <body>
+    <h1 style="margin-left: 20px">
+      Конвертатор кг в фунты с помощью одного нейрона
+    </h1>
+    <h3 style="margin-left: 20px">
+      Единственный нейрон не обучен, сейчас результат конвертации будет
+      неправильным. Напишите в инпут 100 и нажмите кнопку Тренеровать. После
+      нажатия кнопки нейрон обучится и выдаст верный результат. Для наглядности
+      зайдите в консоль браузера.
+    </h3>
+    <a href="Доклад_нейросети_ИСиТ_2.docx" class="lesson"
+      >Скачать лекцию объяснение</a
+    >
     <div class="content">
-        <input type="text" id="input_txt" name="Name">
-        <img src="https://catherineasquithgallery.com/uploads/posts/2021-02/1614525823_30-p-strelka-na-belom-fone-33.png" alt="_Тут была стрелка направо_" height="100px" width="100px">
-        <input type="text" id="output_txt" name="Name">
+      <input type="text" id="input_txt" name="Name" />
+      <div class="strelka">➜</div>
+      <input type="text" id="output_txt" name="Name" />
     </div>
     <div class="textt">
-        <div style="margin-left: 110px;">Килограмм</div>
-        <div style="margin-left: 310px;">Фунтов</div>
+      <div style="margin-left: 180px">Килограмм</div>
+      <div style="margin-left: 250px">Фунтов</div>
     </div>
-    <div style="margin-top: 180px;">
-        <input type="button" class="btn" id="btn11" value="Конвертировать" OnClick="doCalc()"/><br>
-        <input type="button" class="btn" id="btn22" value="Тренеровать" OnClick="Train()"/>
+    <div style="margin-top: 50px">
+      <input
+        type="button"
+        class="btn"
+        id="btn11"
+        value="Конвертировать"
+        OnClick="doCalc()"
+      /><br />
+      <input
+        type="button"
+        class="btn"
+        id="btn22"
+        value="Тренеровать"
+        OnClick="Train()"
+      />
     </div>
-    <div style="margin-top: 50px;">
-        <input type="button" class="btn2" value="Точные значения для проверки" OnClick=""/><br>
-        <input type="button" class="btn2" value="100 кг = 220.46226218488 фунт" OnClick=""/><br>
-        <input type="button" class="btn2" value="8467 кг = 18666.539739194 фунт" OnClick=""/><br>
-        <input type="button" class="btn2" value="777 кг = 1712.9917771765 фунт" OnClick=""/><br>
-
+    <div style="margin-top: 50px">
+      <input
+        type="button"
+        class="btn2"
+        value="Точные значения для проверки"
+        OnClick=""
+      /><br />
+      <input
+        type="button"
+        class="btn2"
+        value="100 кг = 220.46226218488 фунт"
+        OnClick=""
+      /><br />
+      <input
+        type="button"
+        class="btn2"
+        value="8467 кг = 18666.539739194 фунт"
+        OnClick=""
+      /><br />
+      <input
+        type="button"
+        class="btn2"
+        value="777 кг = 1712.9917771765 фунт"
+        OnClick=""
+      /><br />
     </div>
-<style>
-html{
-    margin: 0px;
-    padding: 0px;
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Verdana, sans-serif;
-}
-.textt{
-    display: flex;
-    font-size: 2em;
-}
-input{
-    height: 100px;
-    width:  300px;
-    font-size: 2em;
-    margin: 20px;
-    border: 2px solid;
-    background-color: rgb(223, 220, 220);
-    border-radius: 10px;
-    text-align: center;
-}
-#btn11{
-    background-color: rgb(101, 241, 101);
-}
-#btn22{
-    background-color: rgb(225, 253, 99);
-}
-img{
-    margin-top: 20px;
-}
-.content{
-    display: flex;
-    margin: 30px;
-    margin-bottom: 0px;
-}
-.btn{
-    height: 100px;
-    width:  250px;
-    font-size: 2em;
-    margin: 20px;
-    border: 2px solid;
-    background-color: rgb(243, 240, 240);
-    border-radius: 2px;
-}
-.btn2{
-    height: 100px;
-    width:  500px;
-    font-size: 2em;
-    margin: 20px;
-    border: 2px solid;
-    background-color: rgb(243, 240, 240);
-    border-radius: 2px;
-}
-</style>
+    <style>
+      html {
+        margin: 0px;
+        padding: 0px;
+        font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+          "Lucida Sans Unicode", Verdana, sans-serif;
+      }
+      .textt {
+        display: flex;
+        font-size: 2em;
+      }
+      .strelka {
+        display: flex;
+        align-items: center;
+      }
+      input {
+        height: 100px;
+        width: 300px;
+        font-size: 2em;
+        margin: 20px;
+        border: 2px solid;
+        background-color: rgb(223, 220, 220);
+        border-radius: 10px;
+        text-align: center;
+      }
+      #btn11 {
+        background-color: rgb(101, 241, 101);
+      }
+      #btn22 {
+        background-color: rgb(225, 253, 99);
+      }
+      img {
+        margin-top: 20px;
+      }
+      .content {
+        display: flex;
+        margin: 30px;
+        margin-bottom: 0px;
+      }
+      .btn {
+        height: 100px;
+        width: 250px;
+        font-size: 2em;
+        margin: 20px;
+        border: 2px solid;
+        background-color: rgb(243, 240, 240);
+        border-radius: 2px;
+      }
+      .btn2 {
+        height: 100px;
+        width: 500px;
+        font-size: 2em;
+        margin: 20px;
+        border: 2px solid;
+        background-color: rgb(243, 240, 240);
+        border-radius: 2px;
+      }
+      .lesson {
+        margin-left: 20px;
+        color: black;
+      }
+    </style>
 
-<script>
-let inputVal = document.getElementById('input_txt');
-let outputVal = document.getElementById('output_txt');
-    //только для чтения
-    outputVal.readOnly = true;
+    <script>
+      let inputVal = document.getElementById("input_txt");
+      let outputVal = document.getElementById("output_txt");
+      //только для чтения
+      outputVal.readOnly = true;
 
-    //один нейрон
-    let neuroset = {
+      //один нейрон
+      let neuroset = {
         //вес
         weight: 0.5,
         //ожидаемый результат из 100 кг
-        expectResult: 220.46226
-    }
+        expectResult: 220.46226,
+      };
 
-       function doCalc() {
+      function doCalc() {
         outputVal.value = (inputVal.value * neuroset.weight).toFixed(7);
         console.log("---------------------");
         console.log(inputVal.value * neuroset.weight);
         console.log("---------------------");
-       }
+      }
 
-       function Train(){
+      function Train() {
         console.log("Начало тренировки");
         console.log("---------------------");
         let actualRes;
         let lastErr;
         let correction;
-        let smoothing = 0.0001;
-        let i = 0;     
-            do {
-                //получаем текущий результат обычным переумножением
-                 actualRes = inputVal.value * neuroset.weight;
-                 lastErr = neuroset.expectResult - actualRes;
-                //корректируем весы последними значениями
-                 correction = (lastErr / actualRes) * smoothing;
-                 neuroset.weight += correction;
-                //иттерируем ход
-                i++;
-                if (i%10000==0) {
-                    //выводим каждую 10-ти тысячную операцию
-                    console.log(`Иттерация:\t${i}\n Ошибка:\t${lastErr}`);
-                }
-                //
-            } while ((lastErr > smoothing)||(lastErr < -smoothing));
-            console.log("---------------------");
-            console.log("Конец тренировки");
-       }
-</script>
-</body>
+        let smoothing = 0.00001;
+        let i = 0;
+        do {
+          //получаем текущий результат обычным переумножением
+          actualRes = inputVal.value * neuroset.weight;
+          lastErr = neuroset.expectResult - actualRes;
+          //корректируем весы последними значениями
+          correction = (lastErr / actualRes) * smoothing;
+          neuroset.weight += correction;
+          //иттерируем ход
+          i++;
+          if (i % 10000 == 0) {
+            //выводим каждую 10-ти тысячную операцию
+            console.log(`Иттерация:\t${i}\n Ошибка:\t${lastErr}`);
+          }
+          //
+        } while (lastErr > smoothing || lastErr < -smoothing);
+        console.log("---------------------");
+        console.log("Конец тренировки");
+        alert("Конец тренировки");
+      }
+
+      let kg = 100;
+      let funt = kg / 0.45359237;
+    </script>
+  </body>
 </html>
